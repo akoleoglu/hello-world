@@ -1,5 +1,5 @@
 pipeline {
-    agent { label "Tomcat-Server" }
+    agent { label "master" }
     stages {
         stage('Test') {
             steps {
@@ -21,7 +21,7 @@ pipeline {
         stage('Copies the war file to a deployment server') {
             steps {
                 echo "Copy to war to Tomcat "
-                echo 'cp /var/lib/jenkins/workspace/deploy_on_tomcat-server/webapp/target/*.war /opt/tomcat/webapps'
+                echo 'scp /var/lib/jenkins/workspace/deploy_on_tomcat-server/webapp/target/*.war ec2-user@3.92.4.84:/opt/tomcat/webapps'
             }
         }
         stage('Tests an endpoint to see if the server is up') {
@@ -48,12 +48,11 @@ pipeline {
                 echo 'mvn verify'
             }
         }
-    }
     post {
         always {
             echo 'Deleting war file'
-            echo 'rm -rf /opt/tomcat/webapps/*.war'
+            echo 'rm -rf ec2-user@3.92.4.84:/opt/tomcat/webapps/*.war'
             }
         }
+    }
 }
-
