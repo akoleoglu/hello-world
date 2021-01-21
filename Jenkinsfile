@@ -7,7 +7,10 @@ pipeline {
             }
         }   
         stage('Checks out java source from a github project') {
+            steps {
                 echo "checkout scm"
+                echo ' [ -f ./*.war ] && echo "This file exists!"'
+            }
         }
         stage('Builds the code') {
             steps {
@@ -45,13 +48,10 @@ pipeline {
                 echo 'mvn verify'
             }
         }
-        
-
     post {
         always {
             echo 'Deleting war file'
             echo 'rm -rf ec2-user@3.92.4.84:/opt/tomcat/webapps/*.war'
-            
             }
         }
     }
