@@ -48,6 +48,7 @@ pipeline {
                 echo 'mvn verify'
             }
         }
+    }
     post {
         always {
             echo 'Deleting war file'
