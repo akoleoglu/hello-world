@@ -52,6 +52,7 @@ pipeline {
             echo 'Deleting war file'
             echo 'rm -rf ec2-user@3.92.4.84:/opt/tomcat/webapps/*.war'
             
+            }
         }
     }
 }
